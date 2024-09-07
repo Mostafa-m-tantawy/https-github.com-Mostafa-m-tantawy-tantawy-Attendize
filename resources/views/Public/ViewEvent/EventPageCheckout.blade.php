@@ -1,6 +1,9 @@
 @extends('Public.ViewEvent.Layouts.EventPage')
 
 @section('head')
+    @php
+        App::setLocale('ar');
+    @endphp
 
 @stop
 

@@ -45,8 +45,8 @@ class Event extends MyBaseModel
             'description'         => 'required',
             'location_venue_name' => 'required_without:venue_name_full',
             'venue_name_full'     => 'required_without:location_venue_name',
-            'start_date'          => 'required|date_format:"' . $format . '"',
-            'end_date'            => 'required|date_format:"' . $format . '"',
+            'start_date'          => 'required',
+            'end_date'            => 'required',
             'organiser_name'      => 'required_without:organiser_id',
             'event_image'         => 'nullable|mimes:jpeg,jpg,png|max:3000',
         ];
@@ -182,9 +182,9 @@ class Event extends MyBaseModel
         $format = config('attendize.default_datetime_format');
 
         if ($date instanceof Carbon) {
-            $this->attributes['start_date'] = $date->format($format);
+            $this->attributes['start_date'] = $date;
         } else {
-            $this->attributes['start_date'] = Carbon::createFromFormat($format, $date);
+            $this->attributes['start_date'] = $date;
         }
     }
 
@@ -194,7 +194,7 @@ class Event extends MyBaseModel
      */
     public function startDateFormatted()
     {
-        return $this->start_date->format(config('attendize.default_datetime_format'));
+        return $this->start_date;
     }
 
     /**
@@ -207,9 +207,9 @@ class Event extends MyBaseModel
         $format = config('attendize.default_datetime_format');
 
         if ($date instanceof Carbon) {
-            $this->attributes['end_date'] = $date->format($format);
+            $this->attributes['end_date'] = $date;
         } else {
-            $this->attributes['end_date'] = Carbon::createFromFormat($format, $date);
+            $this->attributes['end_date'] = $date;
         }
     }
 
@@ -219,7 +219,7 @@ class Event extends MyBaseModel
      */
     public function endDateFormatted()
     {
-        return $this->end_date->format(config('attendize.default_datetime_format'));
+        return $this->end_date;
     }
 
     /**

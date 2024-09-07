@@ -73,7 +73,7 @@ Route::group(
         [UserLogoutController::class, 'doLogout']
     )->name('logout');
 
-    Route::group(['middleware' => ['installed']], function () {
+//    Route::group(['middleware' => ['installed']], function () {
 
         /*
          * Login
@@ -660,4 +660,4 @@ Route::group(
     Route::get('/',
         [IndexController::class, 'showIndex']
     )->name('index');
-});
+//});

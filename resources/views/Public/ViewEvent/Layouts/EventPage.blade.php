@@ -60,7 +60,14 @@
             .btn {
                 color: #fff !important;
             }
+            .section_head {
 
+                letter-spacing: unset;
+            }
+            #event_page_wrap #intro .event_buttons .btn-event-link {
+                letter-spacing: unset;
+
+            }
         </style>
         @if ($event->bg_type == 'color' || Request::input('bg_color_preview'))
             <style>body {background-color: {{(Request::input('bg_color_preview') ? '#'.Request::input('bg_color_preview') : $event->bg_color)}} !important; }</style>
@@ -76,7 +83,7 @@
         @endif
 
     </head>
-    <body class="attendize">
+    <body class="attendize" dir="rtl">
         <div id="event_page_wrap" vocab="http://schema.org/" typeof="Event">
             @yield('content')
 

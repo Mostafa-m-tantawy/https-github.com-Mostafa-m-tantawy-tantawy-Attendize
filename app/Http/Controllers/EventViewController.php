@@ -39,6 +39,7 @@ class EventViewController extends Controller
      */
     public function showEventHome(Request $request, $event_id, $slug = '', $preview = false)
     {
+
         $event = Event::findOrFail($event_id);
 
         if (!Utils::userOwns($event) && !$event->is_live) {

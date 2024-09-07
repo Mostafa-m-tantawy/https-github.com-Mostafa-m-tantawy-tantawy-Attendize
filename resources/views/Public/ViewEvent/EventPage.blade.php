@@ -2,6 +2,10 @@
 
 @section('head')
     @include('Public.ViewEvent.Partials.GoogleTagManager')
+    @php
+        App::setLocale('ar');
+    @endphp
+
 @endsection
 
 @section('content')

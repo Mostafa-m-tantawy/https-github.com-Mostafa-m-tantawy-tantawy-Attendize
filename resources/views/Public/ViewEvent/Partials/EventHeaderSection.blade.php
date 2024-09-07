@@ -10,6 +10,7 @@
     </div>
 </section>
 @endif
+
 <section id="organiserHead" class="container-fluid">
     <div class="container">
         <div class="row">
@@ -25,6 +26,9 @@
     <div class="row">
         <div class="col-md-12">
             <h1 property="name">{{$event->title}}</h1>
+            <div class="logo">
+                <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
+            </div>
             <div class="event_venue">
                 <span property="startDate" content="{{ $event->start_date->toIso8601String() }}">
                     {{ $event->startDateFormatted() }}

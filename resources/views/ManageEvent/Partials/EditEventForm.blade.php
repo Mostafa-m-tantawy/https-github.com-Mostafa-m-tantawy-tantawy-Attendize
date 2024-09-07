@@ -119,13 +119,10 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     {!! Form::label('start_date', trans("Event.event_start_date"), array('class'=>'required control-label')) !!}
-                    {!!  Form::text('start_date', $event->getFormattedDate('start_date'),
+                    {!!  Form::date('start_date', $event->getFormattedDate('start_date'),
                                                         [
-                                                    'class'=>'form-control start hasDatepicker ',
-                                                    'data-field'=>'datetime',
-                                                    'data-startend'=>'start',
-                                                    'data-startendelem'=>'.end',
-                                                    'readonly'=>''
+                                                    'class'=>'form-control ',
+
 
                                                 ])  !!}
                 </div>
@@ -137,13 +134,10 @@
                                         [
                                     'class'=>'required control-label '
                                 ])  !!}
-                    {!!  Form::text('end_date', $event->getFormattedDate('end_date'),
+                    {!!  Form::date('end_date', $event->getFormattedDate('end_date'),
                                                 [
-                                            'class'=>'form-control end hasDatepicker ',
-                                            'data-field'=>'datetime',
-                                            'data-startend'=>'end',
-                                            'data-startendelem'=>'.start',
-                                            'readonly'=>''
+                                            'class'=>'form-control  ',
+
                                         ])  !!}
                 </div>
             </div>

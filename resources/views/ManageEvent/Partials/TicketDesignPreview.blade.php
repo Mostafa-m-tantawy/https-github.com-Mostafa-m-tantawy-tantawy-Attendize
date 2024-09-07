@@ -1,3 +1,6 @@
+@php
+    App::setLocale('ar');
+@endphp
 {!! Html::style(asset('assets/stylesheet/ticket.css')) !!}
 <style>
     .ticket {
@@ -13,7 +16,7 @@
 
     }
 </style>
-<div class="ticket">
+<div class="ticket" dir="rtl">
     <div class="logo">
         {!! Html::image(asset($image_path)) !!}
     </div>
