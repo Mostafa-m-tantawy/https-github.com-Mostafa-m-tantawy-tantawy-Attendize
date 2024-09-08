@@ -1,39 +1,442 @@
-Attribution Assurance License
-Copyright (c) 2019 by Attendize (info@attendize.com)
-http://www.attendize.com
-
-All Rights Reserved
-ATTRIBUTION ASSURANCE LICENSE (adapted from the original BSD license)
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the conditions below are met.
-These conditions require a modest attribution to Attendize.com. The hope
-is that its promotional value may help justify the thousands of dollars in
-otherwise billable time invested in writing this and other freely available,
-open-source software.
-
-1. Redistributions of source code, in whole or part and with or without
-modification  must prominently display "Powered by Attendize" or the Attendize logo in verifiable form
-with hyperlink to said site.
-2. Neither the name nor any trademark of the Author may be used to
-endorse or promote products derived from this software without specific
-prior written permission.
-3. Users are entirely responsible, to the exclusion of the Author and
-any other persons, for compliance with (1) regulations set by owners or
-administrators of employed equipment, (2) licensing terms of any other
-software, and (3) local regulations regarding use, including those
-regarding import, export, and use of encryption software.
-
-THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-EVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS;
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
-AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+array:18 [
+  "validation_rules" => array:3 [
+    "ticket_holder_first_name.0.1" => array:1 [
+      0 => "required"
+    ]
+    "ticket_holder_last_name.0.1" => array:1 [
+      0 => "required"
+    ]
+    "ticket_holder_email.0.1" => array:2 [
+      0 => "required"
+      1 => "email"
+    ]
+  ]
+  "validation_messages" => array:4 [
+    "ticket_holder_first_name.0.1.required" => "Ticket holder 1's first name is required"
+    "ticket_holder_last_name.0.1.required" => "Ticket holder 1's last name is required"
+    "ticket_holder_email.0.1.required" => "Ticket holder 1's email is required"
+    "ticket_holder_email.0.1.email" => "Ticket holder 1's email appears to be invalid"
+  ]
+  "event_id" => 1
+  "tickets" => array:1 [
+    0 => array:6 [
+      "ticket" => App\Models\Ticket {#1435
+        #dates: array:3 [
+          0 => "start_sale_date"
+          1 => "end_sale_date"
+          2 => "deleted_at"
+        ]
+        #quantity_reserved_cache: null
+        +messages: array:3 [
+          "price.numeric" => "The price must be a valid number (e.g 12.50)"
+          "title.required" => "You must at least give a title for your ticket. (e.g Early Bird)"
+          "quantity_available.integer" => "Please ensure the quantity available is a number."
+        ]
+        #perPage: 10
+        +timestamps: true
+        #softDelete: true
+        #rules: []
+        #errors: null
+        #connection: "mysql"
+        #table: "tickets"
+        #primaryKey: "id"
+        #keyType: "int"
+        +incrementing: true
+        #with: []
+        #withCount: []
+        +exists: true
+        +wasRecentlyCreated: false
+        #attributes: array:24 [
+          "id" => 1
+          "created_at" => "2024-09-06 18:05:03"
+          "updated_at" => "2024-09-08 15:50:04"
+          "deleted_at" => null
+          "edited_by_user_id" => null
+          "account_id" => 1
+          "order_id" => null
+          "event_id" => 1
+          "title" => "تذاكر"
+          "description" => ""
+          "price" => "30.00"
+          "max_per_person" => 30
+          "min_per_person" => 1
+          "quantity_available" => null
+          "quantity_sold" => 1
+          "start_sale_date" => "2024-09-06 18:05:00"
+          "end_sale_date" => null
+          "sales_volume" => "30.00"
+          "organiser_fees_volume" => "0.00"
+          "is_paused" => 0
+          "public_id" => null
+          "user_id" => 1
+          "sort_order" => 0
+          "is_hidden" => 0
+        ]
+        #original: array:24 [
+          "id" => 1
+          "created_at" => "2024-09-06 18:05:03"
+          "updated_at" => "2024-09-08 15:50:04"
+          "deleted_at" => null
+          "edited_by_user_id" => null
+          "account_id" => 1
+          "order_id" => null
+          "event_id" => 1
+          "title" => "تذاكر"
+          "description" => ""
+          "price" => "30.00"
+          "max_per_person" => 30
+          "min_per_person" => 1
+          "quantity_available" => null
+          "quantity_sold" => 1
+          "start_sale_date" => "2024-09-06 18:05:00"
+          "end_sale_date" => null
+          "sales_volume" => "30.00"
+          "organiser_fees_volume" => "0.00"
+          "is_paused" => 0
+          "public_id" => null
+          "user_id" => 1
+          "sort_order" => 0
+          "is_hidden" => 0
+        ]
+        #changes: []
+        #casts: []
+        #dateFormat: null
+        #appends: []
+        #dispatchesEvents: []
+        #observables: []
+        #relations: array:2 [
+          "event" => App\Models\Event {#1426
+            #dates: array:4 [
+              0 => "start_date"
+              1 => "end_date"
+              2 => "on_sale_date"
+              3 => "deleted_at"
+            ]
+            #messages: array:6 [
+              "title.required" => "You must at least give a title for your event."
+              "organiser_name.required_without" => "Please create an organiser or select an existing organiser."
+              "event_image.mimes" => "Please ensure you are uploading an image (JPG, PNG, JPEG)"
+              "event_image.max" => "Please ensure the image is not larger then 3MB"
+              "location_venue_name.required_without" => "Please enter a venue for your event"
+              "venue_name_full.required_without" => "Please enter a venue for your event"
+            ]
+            +timestamps: true
+            #softDelete: true
+            #rules: []
+            #errors: null
+            #connection: "mysql"
+            #table: "events"
+            #primaryKey: "id"
+            #keyType: "int"
+            +incrementing: true
+            #with: []
+            #withCount: []
+            #perPage: 15
+            +exists: true
+            +wasRecentlyCreated: false
+            #attributes: array:54 [
+              "id" => 1
+              "title" => "حدث حدث"
+              "location" => null
+              "bg_type" => "image"
+              "bg_color" => "#B23333"
+              "bg_image_path" => "assets/images/public/EventPage/backgrounds/5.jpg"
+              "description" => "حدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدث"
+              "start_date" => "2024-09-01 00:00:00"
+              "end_date" => "2024-10-09 00:00:00"
+              "on_sale_date" => null
+              "account_id" => 1
+              "user_id" => 1
+              "currency_id" => 2
+              "organiser_fee_fixed" => "0.00"
+              "organiser_fee_percentage" => "0.00"
+              "organiser_id" => 1
+              "venue_name" => "حدث حدث"
+              "venue_name_full" => ""
+              "location_address" => ""
+              "location_address_line_1" => "حدث حدثحدث حدثحدث حدثحدث حدث"
+              "location_address_line_2" => "حدث حدثحدث حدثحدث حدث"
+              "location_country" => ""
+              "location_country_code" => ""
+              "location_state" => "حدث حدث"
+              "location_post_code" => "حدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدث"
+              "location_street_number" => ""
+              "location_lat" => ""
+              "location_long" => ""
+              "location_google_place_id" => ""
+              "pre_order_display_message" => null
+              "post_order_display_message" => null
+              "social_share_text" => null
+              "social_show_facebook" => 1
+              "social_show_linkedin" => 1
+              "social_show_twitter" => 1
+              "social_show_email" => 1
+              "location_is_manual" => 1
+              "is_live" => 1
+              "created_at" => "2024-09-06 18:04:29"
+              "updated_at" => "2024-09-07 11:01:18"
+              "deleted_at" => null
+              "barcode_type" => "QRCODE"
+              "ticket_border_color" => "#000000"
+              "ticket_bg_color" => "#FFFFFF"
+              "ticket_text_color" => "#000000"
+              "ticket_sub_text_color" => "#999999"
+              "google_tag_manager_code" => null
+              "social_show_whatsapp" => 1
+              "questions_collection_type" => "buyer"
+              "checkout_timeout_after" => 8
+              "is_1d_barcode_enabled" => 0
+              "enable_offline_payments" => 0
+              "offline_payment_instructions" => null
+              "event_image_position" => null
+            ]
+            #original: array:54 [
+              "id" => 1
+              "title" => "حدث حدث"
+              "location" => null
+              "bg_type" => "image"
+              "bg_color" => "#B23333"
+              "bg_image_path" => "assets/images/public/EventPage/backgrounds/5.jpg"
+              "description" => "حدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدث"
+              "start_date" => "2024-09-01 00:00:00"
+              "end_date" => "2024-10-09 00:00:00"
+              "on_sale_date" => null
+              "account_id" => 1
+              "user_id" => 1
+              "currency_id" => 2
+              "organiser_fee_fixed" => "0.00"
+              "organiser_fee_percentage" => "0.00"
+              "organiser_id" => 1
+              "venue_name" => "حدث حدث"
+              "venue_name_full" => ""
+              "location_address" => ""
+              "location_address_line_1" => "حدث حدثحدث حدثحدث حدثحدث حدث"
+              "location_address_line_2" => "حدث حدثحدث حدثحدث حدث"
+              "location_country" => ""
+              "location_country_code" => ""
+              "location_state" => "حدث حدث"
+              "location_post_code" => "حدث حدثحدث حدثحدث حدثحدث حدثحدث حدثحدث حدث"
+              "location_street_number" => ""
+              "location_lat" => ""
+              "location_long" => ""
+              "location_google_place_id" => ""
+              "pre_order_display_message" => null
+              "post_order_display_message" => null
+              "social_share_text" => null
+              "social_show_facebook" => 1
+              "social_show_linkedin" => 1
+              "social_show_twitter" => 1
+              "social_show_email" => 1
+              "location_is_manual" => 1
+              "is_live" => 1
+              "created_at" => "2024-09-06 18:04:29"
+              "updated_at" => "2024-09-07 11:01:18"
+              "deleted_at" => null
+              "barcode_type" => "QRCODE"
+              "ticket_border_color" => "#000000"
+              "ticket_bg_color" => "#FFFFFF"
+              "ticket_text_color" => "#000000"
+              "ticket_sub_text_color" => "#999999"
+              "google_tag_manager_code" => null
+              "social_show_whatsapp" => 1
+              "questions_collection_type" => "buyer"
+              "checkout_timeout_after" => 8
+              "is_1d_barcode_enabled" => 0
+              "enable_offline_payments" => 0
+              "offline_payment_instructions" => null
+              "event_image_position" => null
+            ]
+            #changes: []
+            #casts: []
+            #dateFormat: null
+            #appends: []
+            #dispatchesEvents: []
+            #observables: []
+            #relations: []
+            #touches: []
+            #hidden: []
+            #visible: []
+            #fillable: []
+            #guarded: array:1 [
+              0 => "*"
+            ]
+            #forceDeleting: false
+          }
+          "questions" => Illuminate\Database\Eloquent\Collection {#1441
+            #items: []
+          }
+        ]
+        #touches: []
+        #hidden: []
+        #visible: []
+        #fillable: []
+        #guarded: array:1 [
+          0 => "*"
+        ]
+        #forceDeleting: false
+      }
+      "qty" => 1
+      "price" => 30.0
+      "booking_fee" => 0.0
+      "organiser_booking_fee" => 0.0
+      "full_price" => 30.0
+    ]
+  ]
+  "total_ticket_quantity" => 1
+  "order_started" => 1725811055
+  "reserved_tickets_id" => 6
+  "order_total" => 30.0
+  "booking_fee" => 0.0
+  "organiser_booking_fee" => 0.0
+  "total_booking_fee" => 0.0
+  "order_requires_payment" => true
+  "account_id" => 1
+  "affiliate_referral" => null
+  "account_payment_gateway" => App\Models\AccountPaymentGateway {#1443
+    #fillable: array:3 [
+      0 => "payment_gateway_id"
+      1 => "account_id"
+      2 => "config"
+    ]
+    +timestamps: true
+    #softDelete: true
+    #rules: []
+    #messages: []
+    #errors: null
+    #connection: "mysql"
+    #table: "account_payment_gateways"
+    #primaryKey: "id"
+    #keyType: "int"
+    +incrementing: true
+    #with: []
+    #withCount: []
+    #perPage: 15
+    +exists: true
+    +wasRecentlyCreated: false
+    #attributes: array:7 [
+      "id" => 2
+      "account_id" => 1
+      "payment_gateway_id" => 2
+      "config" => "[]"
+      "deleted_at" => null
+      "created_at" => "2024-09-07 12:35:48"
+      "updated_at" => "2024-09-07 12:35:48"
+    ]
+    #original: array:7 [
+      "id" => 2
+      "account_id" => 1
+      "payment_gateway_id" => 2
+      "config" => "[]"
+      "deleted_at" => null
+      "created_at" => "2024-09-07 12:35:48"
+      "updated_at" => "2024-09-07 12:35:48"
+    ]
+    #changes: []
+    #casts: []
+    #dates: array:1 [
+      0 => "deleted_at"
+    ]
+    #dateFormat: null
+    #appends: []
+    #dispatchesEvents: []
+    #observables: []
+    #relations: array:1 [
+      "payment_gateway" => App\Models\PaymentGateway {#1444
+        +timestamps: false
+        #softDelete: true
+        #rules: []
+        #messages: []
+        #errors: null
+        #connection: "mysql"
+        #table: "payment_gateways"
+        #primaryKey: "id"
+        #keyType: "int"
+        +incrementing: true
+        #with: []
+        #withCount: []
+        #perPage: 15
+        +exists: true
+        +wasRecentlyCreated: false
+        #attributes: array:9 [
+          "id" => 2
+          "provider_name" => "Dummy/Test Gateway"
+          "provider_url" => "none"
+          "is_on_site" => 1
+          "can_refund" => 1
+          "name" => "Dummy"
+          "default" => 0
+          "admin_blade_template" => ""
+          "checkout_blade_template" => "Public.ViewEvent.Partials.Dummy"
+        ]
+        #original: array:9 [
+          "id" => 2
+          "provider_name" => "Dummy/Test Gateway"
+          "provider_url" => "none"
+          "is_on_site" => 1
+          "can_refund" => 1
+          "name" => "Dummy"
+          "default" => 0
+          "admin_blade_template" => ""
+          "checkout_blade_template" => "Public.ViewEvent.Partials.Dummy"
+        ]
+        #changes: []
+        #casts: []
+        #dates: []
+        #dateFormat: null
+        #appends: []
+        #dispatchesEvents: []
+        #observables: []
+        #relations: []
+        #touches: []
+        #hidden: []
+        #visible: []
+        #fillable: []
+        #guarded: array:1 [
+          0 => "*"
+        ]
+      }
+    ]
+    #touches: []
+    #hidden: []
+    #visible: []
+    #guarded: array:1 [
+      0 => "*"
+    ]
+    #forceDeleting: false
+  }
+  "payment_gateway" => App\Models\PaymentGateway {#1444}
+  "request_data" => array:1 [
+    0 => array:18 [
+      "_token" => "LVLgaW6hzWIuIcQe8silRSUwnIcxq23nrXmJCCo9"
+      "event_id" => "1"
+      "order_first_name" => "Kendall"
+      "order_last_name" => "Daniels"
+      "order_email" => "tezacyd@mailinator.com"
+      "business_name" => null
+      "business_tax_number" => null
+      "business_address_line1" => null
+      "business_address_line2" => null
+      "business_address_state" => null
+      "business_address_city" => null
+      "business_address_code" => null
+      "ticket_holder_first_name" => array:1 [
+        0 => array:1 [
+          1 => "Oren"
+        ]
+      ]
+      "ticket_holder_last_name" => array:1 [
+        0 => array:1 [
+          1 => "Taylor"
+        ]
+      ]
+      "ticket_holder_email" => array:1 [
+        0 => array:1 [
+          1 => "gamipope@mailinator.com"
+        ]
+      ]
+      "is_embedded" => null
+      "card-expiry-month" => "1"
+      "card-expiry-year" => "2027"
+    ]
+  ]
+]

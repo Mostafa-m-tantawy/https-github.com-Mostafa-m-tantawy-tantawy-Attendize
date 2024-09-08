@@ -361,7 +361,6 @@ class EventCheckoutController extends Controller
         $payment_failed = $request->get('is_payment_failed') ? 1 : 0;
 
         $secondsToExpire = Carbon::now()->diffInSeconds($order_session['expires']);
-
         $viewData = ['event' => $event,
                      'tickets' => $order_session['tickets'],
                      'order_total' => $order_total,
@@ -394,8 +393,8 @@ class EventCheckoutController extends Controller
         session()->push('ticket_order_' . $event_id . '.request_data', $request_data);
 
         $ticket_order = session()->get('ticket_order_' . $event_id);
-
-        $event = Event::findOrFail($event_id);
+//dd($ticket_order['order_requires_payment']);
+$event = Event::findOrFail($event_id);
 
         $order_requires_payment = $ticket_order['order_requires_payment'];
 
@@ -721,14 +720,14 @@ class EventCheckoutController extends Controller
         // Queue up some tasks - Emails to be sent, PDFs etc.
         // Send order notification to organizer
         Log::debug('Queueing Order Notification Job');
-        SendOrderNotificationJob::dispatch($order, $orderService);
+//        SendOrderNotificationJob::dispatch($order, $orderService);
         // Send order confirmation to ticket buyer
         Log::debug('Queueing Order Tickets Job');
-        SendOrderConfirmationJob::dispatch($order, $orderService);
+//        SendOrderConfirmationJob::dispatch($order, $orderService);
         // Send tickets to attendees
         Log::debug('Queueing Attendee Ticket Jobs');
         foreach ($order->attendees as $attendee) {
-            SendOrderAttendeeTicketJob::dispatch($attendee);
+//            SendOrderAttendeeTicketJob::dispatch($attendee);
             Log::debug('Queueing Attendee Ticket Job Done');
         }
 
@@ -815,6 +814,7 @@ class EventCheckoutController extends Controller
 
         if ($request->get('download') == '1') {
             return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+
         }
         return view('Public.ViewEvent.Partials.PDFTicket', $data);
     }

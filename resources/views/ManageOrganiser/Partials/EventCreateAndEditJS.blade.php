@@ -25,12 +25,12 @@
         })
 
         $("#DatePicker").remove();
-        // var $div = $("<div>", {id: "DatePicker"});
-        // $("body").append($div);
-        // $div.DateTimePicker({
-        //     dateTimeFormat: "dd MM yyyy",
-        //     dateSeparator:"/"
-        // });
+        var $div = $("<div>", {id: "DatePicker"});
+        $("body").append($div);
+        $div.DateTimePicker({
+            dateTimeFormat: "dd-MM-yyyy HH:mm",
+            dateSeparator:  "-",
+        });
 
     });
 </script>
