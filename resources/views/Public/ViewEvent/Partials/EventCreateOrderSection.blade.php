@@ -36,7 +36,7 @@
                 @if($order_total > 0)
                 <div class="panel-footer">
                     <h5>
-                        @lang("Public_ViewEvent.total"): <span style="float: right;"><b>{{ $orderService->getOrderTotalWithBookingFee(true) }}</b></span>
+                        @lang("Public_ViewEvent.total"): <span style="float: left;"><b>{{ $orderService->getOrderTotalWithBookingFee(true) }}</b></span>
                     </h5>
                     @if($event->organiser->charge_tax)
                     <h5>
@@ -45,7 +45,7 @@
                     </h5>
                     <h5>
                         <strong>@lang("Public_ViewEvent.grand_total")</strong>
-                        <span style="float: right;"><b>{{  $orderService->getGrandTotal(true) }}</b></span>
+                        <span style="float: left;"><b>{{  $orderService->getGrandTotal(true) }}</b></span>
                     </h5>
                     @endif
                 </div>

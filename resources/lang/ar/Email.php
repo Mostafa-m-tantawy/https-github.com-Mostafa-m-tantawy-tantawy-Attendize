@@ -1,21 +1,22 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2018/04/26 11:05:24 
+ Generated via "php artisan localization:missing" at 2018/04/26 11:05:24
 *************************************************************************/
 
 return array (
   //==================================== Translations ====================================//
-  'attendize_register' => 'Thank you for registering for Attendize',
-  'contact_organiser' => 'You can contact :organiser_name directly at <a href="mailto::organiser_email">:organiser_email</a>, or by replying to this email.',
-  'invite_user' => ':name added you to an :app account.',
-  'message_received_from_organiser' => 'You have received a message from :organiser_name in relation to the event :event_title.',
-  'message_regarding_event' => 'Message Regarding: :event',
-  'organiser_copy' => '[Organiser Copy]',
-  'refund_from_name' => 'You have received a refund from :name',
-  'your_ticket_cancelled' => 'Your ticket has been cancelled',
-  'your_ticket_for_event' => 'Your ticket for the event :event',
+
+    'attendize_register' => 'شكرًا لك على التسجيل ',
+    'contact_organiser' => 'يمكنك الاتصال بـ :organiser_name مباشرة على <a href="mailto::organiser_email">:organiser_email</a>، أو بالرد على هذا البريد الإلكتروني.',
+    'invite_user' => ':name أضافك إلى حساب :app.',
+    'message_received_from_organiser' => 'لقد تلقيت رسالة من :organiser_name فيما يتعلق بالحدث :event_title.',
+    'message_regarding_event' => 'رسالة بخصوص: :event',
+    'organiser_copy' => '[نسخة المنظم]',
+    'refund_from_name' => 'لقد تلقيت استردادًا للمبلغ من :name',
+    'your_ticket_cancelled' => 'تم إلغاء تذكرتك',
+    'your_ticket_for_event' => 'تذكرتك للحدث :event',
     //================================== Obsolete strings ==================================//
-  'LLH:obsolete' => 
+  'LLH:obsolete' =>
   array (
 
   ),

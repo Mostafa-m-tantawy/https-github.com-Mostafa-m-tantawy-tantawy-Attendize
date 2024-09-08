@@ -720,14 +720,14 @@ $event = Event::findOrFail($event_id);
         // Queue up some tasks - Emails to be sent, PDFs etc.
         // Send order notification to organizer
         Log::debug('Queueing Order Notification Job');
-//        SendOrderNotificationJob::dispatch($order, $orderService);
+        SendOrderNotificationJob::dispatch($order, $orderService);
         // Send order confirmation to ticket buyer
         Log::debug('Queueing Order Tickets Job');
-//        SendOrderConfirmationJob::dispatch($order, $orderService);
+        SendOrderConfirmationJob::dispatch($order, $orderService);
         // Send tickets to attendees
         Log::debug('Queueing Attendee Ticket Jobs');
         foreach ($order->attendees as $attendee) {
-//            SendOrderAttendeeTicketJob::dispatch($attendee);
+            SendOrderAttendeeTicketJob::dispatch($attendee);
             Log::debug('Queueing Attendee Ticket Job Done');
         }
 

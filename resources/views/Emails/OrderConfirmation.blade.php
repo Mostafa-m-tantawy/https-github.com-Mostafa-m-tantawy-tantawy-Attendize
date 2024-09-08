@@ -20,10 +20,10 @@ Order Reference: <strong>{{$order->order_reference}}</strong><br>
 Order Name: <strong>{{$order->full_name}}</strong><br>
 Order Date: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
 Order Email: <strong>{{$order->email}}</strong><br>
-<a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">Add To Calendar</a>
+<a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">أضف إلى التقويم</a>
 
 @if ($order->is_business)
-<h3>Business Details</h3>
+<h3>تفاصيل العمل</h3>
 @if ($order->business_name) @lang("Public_ViewEvent.business_name"): <strong>{{$order->business_name}}</strong><br>@endif
 @if ($order->business_tax_number) @lang("Public_ViewEvent.business_tax_number"): <strong>{{$order->business_tax_number}}</strong><br>@endif
 @if ($order->business_address_line_one) @lang("Public_ViewEvent.business_address_line1"): <strong>{{$order->business_address_line_one}}</strong><br>@endif
@@ -33,24 +33,24 @@ Order Email: <strong>{{$order->email}}</strong><br>
 @if ($order->business_address_code) @lang("Public_ViewEvent.business_address_code"): <strong>{{$order->business_address_code}}</strong><br>@endif
 @endif
 
-<h3>Order Items</h3>
+<h3> عناصر الطلب</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
     <table style="width:100%; margin:10px;">
         <tr>
             <td>
-                <strong>Ticket</strong>
+                <strong>تذكره</strong>
             </td>
             <td>
-                <strong>Qty.</strong>
+                <strong>الكمية</strong>
             </td>
             <td>
-                <strong>Price</strong>
+                <strong>السعر</strong>
             </td>
             <td>
-                <strong>Fee</strong>
+                <strong>مصاريف</strong>
             </td>
             <td>
-                <strong>Total</strong>
+                <strong>الاجمالي</strong>
             </td>
         </tr>
         @foreach($order->orderItems as $order_item)
@@ -59,7 +59,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
             <td>{{$order_item->quantity}}</td>
             <td>
                 @isFree($order_item->unit_price)
-                FREE
+                مجاني
                 @else
                 {{money($order_item->unit_price, $order->event->currency)}}
                 @endif
@@ -73,7 +73,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
             </td>
             <td>
                 @isFree($order_item->unit_price)
-                FREE
+                مجاني
                 @else
                 {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity),
                 $order->event->currency)}}
@@ -83,7 +83,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
         @endforeach
         <tr>
             <td colspan="3"></td>
-            <td><strong>Sub Total</strong></td>
+            <td><strong>المجموع الفرعي</strong></td>
             <td colspan="2">
                 {{$orderService->getOrderTotalWithBookingFee(true)}}
             </td>
@@ -101,7 +101,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
         @endif
         <tr>
             <td colspan="3"></td>
-            <td><strong>Total</strong></td>
+            <td><strong>الاجمالي</strong></td>
             <td colspan="2">
                 {{$orderService->getGrandTotal(true)}}
             </td>

@@ -1,8 +1,9 @@
 <?php
 return [
-    'received_new_order'             => 'You have received a new order for the event',
-    'order_still_awaiting_payment'   => 'Please note: This order still requires payment.',
-    'manage_order'                   => 'You can manage this order at',
-    'successful_order'               => 'Your order for the event <strong>:name</strong> was successful.',
-    'tickets_attached'               => 'Your tickets are attached to this email. You can also view you order details and download your tickets at:',
-];
+  'received_new_order' => 'لقد تلقيت طلبًا جديدًا للحدث',
+    'order_still_awaiting_payment' => 'يرجى ملاحظة: هذا الطلب لا يزال يتطلب الدفع.',
+    'manage_order' => 'يمكنك إدارة هذا الطلب على',
+    'successful_order' => 'لقد تم طلبك للحدث <strong>:name</strong> بنجاح.',
+    'tickets_attached' => 'تذاكرك مرفقة بهذا البريد الإلكتروني. يمكنك أيضًا عرض تفاصيل طلبك وتنزيل تذاكرك على:',
+
+    ];
