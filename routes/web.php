@@ -38,6 +38,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserLogoutController;
 use App\Http\Controllers\UserSignupController;
+use App\Http\Controllers\UniversityController;
 
 Route::group(
     [
@@ -268,6 +269,10 @@ Route::group(
                 [OrganiserEventsController::class, 'showEvents']
             )->name('showOrganiserEvents');
 
+            Route::get('{organiser_id}/universities',
+                [OrganiserEventsController::class, 'showUniversities']
+            )->name('showOrganiserUniversities');
+
             Route::get('{organiser_id}/customize',
                 [OrganiserCustomizeController::class, 'showCustomize']
             )->name('showOrganiserCustomize');
@@ -306,6 +311,30 @@ Route::group(
             Route::post('/create',
                 [EventController::class, 'postCreateEvent']
             )->name('postCreateEvent');
+        });
+        Route::group(['prefix' => 'universities'], function () {
+
+            /*
+             * ----------
+             * Create Event
+             * ----------
+             */
+            Route::get('/create',
+                [UniversityController::class, 'showCreateUniversity']
+            )->name('showCreateUniversity');
+
+            Route::post('/create',
+                [UniversityController::class, 'postCreateUniversity']
+            )->name('postCreateUniversity');
+
+
+            Route::get('/edit/{university_id}',
+                [UniversityController::class, 'showUpdateUniversity']
+            )->name('showUpdateUniversity');
+
+            Route::post('/edit/{university_id}',
+                [UniversityController::class, 'postUpdateUniversity']
+            )->name('postUpdateUniversity');
         });
 
         /*

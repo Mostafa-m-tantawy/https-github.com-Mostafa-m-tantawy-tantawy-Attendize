@@ -106,5 +106,7 @@
         @endif
 
         @include('Shared.Partials.GlobalFooterJS')
+        @yield('scripts')
+
     </body>
 </html>

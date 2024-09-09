@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Organiser;
+use App\Models\University;
 use Illuminate\Http\Request;
 
 class OrganiserEventsController extends MyBaseController
@@ -40,5 +41,32 @@ class OrganiserEventsController extends MyBaseController
         ];
 
         return view('ManageOrganiser.Events', $data);
+    }
+
+    public function showUniversities(Request $request, $organiser_id)
+    {
+        $organiser = Organiser::scope()->findOrfail($organiser_id);
+
+        $allowed_sorts = ['created_at',  'name'];
+
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+
+        $universities = $searchQuery
+            ? University::scope()->with(['organiser'])->where('name', 'like', '%' . $searchQuery . '%')->orderBy($sort_by,
+                'desc')->where('organiser_id', '=', $organiser_id)->paginate(12)
+            : University::scope()->with(['organiser'])->where('organiser_id', '=', $organiser_id)->orderBy($sort_by, 'desc')->paginate(12);
+
+        $data = [
+            'universities'    => $universities,
+            'organiser' => $organiser,
+            'search'    => [
+                'q'        => $searchQuery ? $searchQuery : '',
+                'sort_by'  => $request->get('sort_by') ? $request->get('sort_by') : '',
+                'showPast' => $request->get('past'),
+            ],
+        ];
+
+        return view('ManageOrganiser.universities', $data);
     }
 }

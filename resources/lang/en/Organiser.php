@@ -1,6 +1,6 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2018/04/26 10:16:27 
+ Generated via "php artisan localization:missing" at 2018/04/26 10:16:27
 *************************************************************************/
 
 return array (
@@ -50,6 +50,8 @@ return array (
   'organiser_name' => 'Organiser Name',
   'organiser_name_dashboard' => ':name Dashboard',
   'organiser_name_events' => ':name Events',
+  'universities' => 'Universities',
+  'organiser_name_Universities' => ':name Universities',
   'organiser_name_placeholder' => 'Who\'s organising the event?',
   'organiser_page' => 'Organiser Page',
   'organiser_page_design' => 'Organiser Page Design',

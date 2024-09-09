@@ -15,6 +15,12 @@
                     <span class="text">@lang("Organiser.event")</span>
                 </a>
             </li>
+            <li class="{{ Request::is('*universities*') ? 'active' : '' }}">
+                <a href="{{route('showOrganiserUniversities', array('organiser_id' => $organiser->id))}}">
+                    <span class="figure"><i class="ico-calendar"></i></span>
+                    <span class="text">@lang("Organiser.universities")</span>
+                </a>
+            </li>
 
             <li class="{{ Request::is('*customize*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserCustomize', array('organiser_id' => $organiser->id))}}">
