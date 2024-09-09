@@ -6,6 +6,7 @@ use App\Attendize\PaymentUtils;
 use App\Jobs\SendOrderNotificationJob;
 use App\Jobs\SendOrderConfirmationJob;
 use App\Jobs\SendOrderAttendeeTicketJob;
+use App\Mail\SendOrderNotificationMail;
 use App\Models\Account;
 use App\Models\AccountPaymentGateway;
 use App\Models\Affiliate;
@@ -18,6 +19,7 @@ use App\Models\PaymentGateway;
 use App\Models\QuestionAnswer;
 use App\Models\ReservedTickets;
 use App\Models\Ticket;
+use App\Models\University;
 use App\Services\Order as OrderService;
 use Services\PaymentGateway\Factory as PaymentGatewayFactory;
 use Carbon\Carbon;
@@ -258,12 +260,14 @@ class EventCheckoutController extends Controller
         $secondsToExpire = Carbon::now()->diffInSeconds($order_session['expires']);
 
         $event = Event::findorFail($order_session['event_id']);
+        $universities= University::where('organiser_id', '=', $event->organiser_id)->get();
 
         $orderService = new OrderService($order_session['order_total'], $order_session['total_booking_fee'], $event);
         $orderService->calculateFinalCosts();
 
         $data = $order_session + [
                 'event'           => $event,
+                'universities'           => $universities,
                 'secondsToExpire' => $secondsToExpire,
                 'is_embedded'     => $this->is_embedded,
                 'orderService'    => $orderService
@@ -294,6 +298,9 @@ class EventCheckoutController extends Controller
         $request_data = (!empty($request_data[0])) ? array_merge($request_data[0], $request->all())
                                                    : $request->all();
 
+        $request_data['ticket_holder_email'][0]['1'] =$request_data['order_email'] .'@'.$request_data['domain'];
+        $request_data['order_email'] =$request_data['order_email'] .'@'.$request_data['domain'];
+
         session()->remove('ticket_order_' . $event_id . '.request_data');
         session()->push('ticket_order_' . $event_id . '.request_data', $request_data);
 
@@ -307,29 +314,28 @@ class EventCheckoutController extends Controller
         $order->rules = $order->rules + $validation_rules;
         $order->messages = $order->messages + $validation_messages;
 
-        if ($request->has('is_business') && $request->get('is_business')) {
-            // Dynamic validation on the new business fields, only gets validated if business selected
-            $businessRules = [
-                'business_name' => 'required',
-                'business_tax_number' => 'required',
-                'business_address_line1' => 'required',
-                'business_address_city' => 'required',
-                'business_address_code' => 'required',
-            ];
-
-            $businessMessages = [
-                'business_name.required' => 'Please enter a valid business name',
-                'business_tax_number.required' => 'Please enter a valid business tax number',
-                'business_address_line1.required' => 'Please enter a valid street address',
-                'business_address_city.required' => 'Please enter a valid city',
-                'business_address_code.required' => 'Please enter a valid code',
-            ];
-
-            $order->rules = $order->rules + $businessRules;
-            $order->messages = $order->messages + $businessMessages;
-        }
-
-        if (!$order->validate($request->all())) {
+//        if ($request->has('is_business') && $request->get('is_business')) {
+//            // Dynamic validation on the new business fields, only gets validated if business selected
+//            $businessRules = [
+//                'business_name' => 'required',
+//                'business_tax_number' => 'required',
+//                'business_address_line1' => 'required',
+//                'business_address_city' => 'required',
+//                'business_address_code' => 'required',
+//            ];
+//
+//            $businessMessages = [
+//                'business_name.required' => 'Please enter a valid business name',
+//                'business_tax_number.required' => 'Please enter a valid business tax number',
+//                'business_address_line1.required' => 'Please enter a valid street address',
+//                'business_address_city.required' => 'Please enter a valid city',
+//                'business_address_code.required' => 'Please enter a valid code',
+//            ];
+//
+//            $order->rules = $order->rules + $businessRules;
+//            $order->messages = $order->messages + $businessMessages;
+//        }
+        if (!$order->validate($request_data)) {
             return response()->json([
                 'status'   => 'error',
                 'messages' => $order->errors(),
@@ -719,15 +725,20 @@ $event = Event::findOrFail($event_id);
 
         // Queue up some tasks - Emails to be sent, PDFs etc.
         // Send order notification to organizer
-        Log::debug('Queueing Order Notification Job');
-        SendOrderNotificationJob::dispatch($order, $orderService);
+        $mail = new SendOrderNotificationMail($order, $orderService);
+//        Mail::to($this->order->event->organiser->email)
+        Mail::to('mostafa.m.tantawy@gmail.com')
+            ->locale(Config::get('app.locale'))
+            ->send($mail);
+//        Log::debug('Queueing Order Notification Job');
+//        SendOrderNotificationJob::dispatch($order, $orderService);
         // Send order confirmation to ticket buyer
-        Log::debug('Queueing Order Tickets Job');
-        SendOrderConfirmationJob::dispatch($order, $orderService);
+//        Log::debug('Queueing Order Tickets Job');
+//        SendOrderConfirmationJob::dispatch($order, $orderService);
         // Send tickets to attendees
         Log::debug('Queueing Attendee Ticket Jobs');
         foreach ($order->attendees as $attendee) {
-            SendOrderAttendeeTicketJob::dispatch($attendee);
+//            SendOrderAttendeeTicketJob::dispatch($attendee);
             Log::debug('Queueing Attendee Ticket Job Done');
         }
 
@@ -812,10 +823,10 @@ $event = Event::findOrFail($event_id);
             'images'    => $images,
         ];
 
-        if ($request->get('download') == '1') {
-            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
-
-        }
+//        if ($request->get('download') == '1') {
+//            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+//
+//        }
         return view('Public.ViewEvent.Partials.PDFTicket', $data);
     }
 

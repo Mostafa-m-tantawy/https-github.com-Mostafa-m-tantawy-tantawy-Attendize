@@ -19,14 +19,24 @@ University            </li>
                     <p class="nm text-muted">University</p>
                 </div>
             </li>
-            <li>
-                <div class="section">
-                    <h4 class="nm">{{$university->domain}}</h4>
-                    <p class="nm text-muted">Domain</p>
-                </div>
-            </li>
+
 
         </ul>
+        <ul class="nav nav-section nav-justified mt5 mb5">
+        <li>
+            <div class="section">
+                <h4 class="nm">{{$university->stud_domain}}</h4>
+                <p class="nm text-muted">Student Domain</p>
+            </div>
+        </li>
+            <li>
+            <div class="section">
+                <h4 class="nm">{{$university->staff_domain}}</h4>
+                <p class="nm text-muted">Staff Domain</p>
+            </div>
+        </li>
+        </ul>
+
     </div>
     <div class="panel-footer">
         <ul class="nav nav-section nav-justified">

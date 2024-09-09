@@ -16,7 +16,8 @@ class CreateUniversitiesTable extends Migration
         Schema::create('universities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('domain');
+            $table->string('stud_domain');
+            $table->string('staff_domain');
 
             $table->integer('account_id')->unsigned()->index();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');

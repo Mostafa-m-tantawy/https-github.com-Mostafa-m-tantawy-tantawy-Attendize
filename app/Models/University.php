@@ -9,10 +9,10 @@ class University extends MyBaseModel
     use SoftDeletes;
     public function rules()
     {
-        $format = config('attendize.default_datetime_format');
         return [
             'name'               => 'required',
-            'domain'         => 'required',
+            'staff_domain'         => 'required',
+            'stud_domain'         => 'required',
 
         ];
     }

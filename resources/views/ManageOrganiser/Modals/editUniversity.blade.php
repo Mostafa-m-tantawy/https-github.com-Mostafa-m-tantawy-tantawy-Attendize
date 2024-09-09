@@ -18,8 +18,13 @@
                             {!!  Form::text('name', old('name',$university->name),array('class'=>'form-control','placeholder'=>"جامعه الملك سعود") )  !!}
                         </div>
      <div class="form-group">
-                            {!! Form::label('domain', "Domain", array('class'=>'control-label required')) !!}
-                            {!!  Form::text('domain', old('domain',$university->domain),array('class'=>'form-control','placeholder'=>"ksu.edu.sa") )  !!}
+                            {!! Form::label('staff_domain', "Staff Domain", array('class'=>'control-label required')) !!}
+                            {!!  Form::text('staff_domain', old('staff_domain',$university->staff_domain),array('class'=>'form-control','placeholder'=>"ksu.edu.sa.staff") )  !!}
+                        </div>
+
+   <div class="form-group">
+                            {!! Form::label('stud_domain', "Student Domain", array('class'=>'control-label required')) !!}
+                            {!!  Form::text('stud_domain', old('stud_domain',$university->stud_domain),array('class'=>'form-control','placeholder'=>"ksu.edu.sa.student") )  !!}
                         </div>
 
 
