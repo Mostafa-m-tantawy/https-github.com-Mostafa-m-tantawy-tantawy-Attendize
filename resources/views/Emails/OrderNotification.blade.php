@@ -1,6 +1,10 @@
 @extends('Emails.Layouts.Master')
 
 @section('message_content')
+    @php
+        App::setLocale('ar')
+    @endphp
+
 @lang("basic.hello"),<br><br>
 
 @lang("Order_Emails.received_new_order") <b>{{$order->event->title}}</b>.<br><br>

@@ -107,11 +107,11 @@
                         <div class="input-group mb-3">
                             {!! Form::label("order_email", trans("Public_ViewEvent.email")) !!}
                             <div class="input-group">
-                                <div class="input-group-addon" id="domainHTML">{{$university->first()->stud_domain}}@</div>
+                                <div class="input-group-addon" id="domainHTML">{{$universities->first()->stud_domain}}@</div>
                                 <input class="form-control order_email" name="order_email" required placeholder="email" >
                             </div>
                         </div>
-<input type="hidden" name="domain" id="domain" value="{{$university->first()->stud_domain}}">
+<input type="hidden" name="domain" id="domain" value="{{$universities->first()->stud_domain}}">
                     </div>
                 </div>
                 <br>

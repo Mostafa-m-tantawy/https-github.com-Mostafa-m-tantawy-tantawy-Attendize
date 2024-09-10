@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-    
+
     /**
      * Register any application services.
      *
@@ -24,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        App::bind('path.public', function() {
+
+            return base_path().'/public_html';
+
+        });
         // Only load LaravelIdeHelper if we're in development mode
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

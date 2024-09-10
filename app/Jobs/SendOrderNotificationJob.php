@@ -39,9 +39,9 @@ class SendOrderNotificationJob implements ShouldQueue
     public function handle()
     {
         $mail = new SendOrderNotificationMail($this->order, $this->orderService);
-//        Mail::to($this->order->event->organiser->email)
-        Mail::to('mostafa.m.tantawy@gmail.com')
-            ->locale(Config::get('app.locale'))
+        Mail::to($this->order->event->organiser->email)
+//        Mail::to('mostafa.m.tantawy@gmail.com')
+            ->locale('ar')
             ->send($mail);
     }
 }

@@ -52,13 +52,13 @@ class SendMessageToAttendeeJob implements ShouldQueue
             $this->attendee
         );
         Mail::to($this->attendee->email, $this->attendee->full_name)
-            ->locale(Config::get('app.locale'))
+            ->locale('ar')
             ->send($mail);
 
         if ($this->send_copy == '1') {
             $mail->subject = $mail->subject . trans("Email.organiser_copy");
             Mail::to($this->event->organiser->email, $this->event->organiser->name)
-                ->locale(Config::get('app.locale'))
+                ->locale('ar')
                 ->send($mail);
         }
     }

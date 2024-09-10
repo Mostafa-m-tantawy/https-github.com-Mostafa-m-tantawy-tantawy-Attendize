@@ -36,12 +36,12 @@ class SendAttendeeInviteMail extends Mailable
     {
         Log::debug("Sending invite to: " . $this->attendee->email);
 
-        $subject = trans("Email.your_ticket_for_event", ["event" => $this->attendee->order->event->title]);
-        $file_name = $this->attendee->getReferenceAttribute();
-        $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
+        $subject = trans("Email.your_ticket_for_event", ["event" => $this->attendee->order->event->title],'ar');
+//        $file_name = $this->attendee->getReferenceAttribute();
+//        $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
 
         return $this->subject($subject)
-                    ->attach($file_path)
+//                    ->attach($file_path)
                     ->view('Emails.AttendeeInvite');
     }
 }

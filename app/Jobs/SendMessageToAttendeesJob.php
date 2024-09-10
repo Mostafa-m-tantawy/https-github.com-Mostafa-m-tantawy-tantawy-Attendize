@@ -53,7 +53,7 @@ class SendMessageToAttendeesJob implements ShouldQueue
 
             $mail = new SendMessageToAttendeesMail($this->message->subject, $this->message->message, $event, $attendee);
             Mail::to($attendee->email, $attendee->full_name)
-                ->locale(Config::get('app.locale'))
+                ->locale('ar')
                 ->send($mail);
         }
 
