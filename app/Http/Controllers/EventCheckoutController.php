@@ -298,7 +298,10 @@ class EventCheckoutController extends Controller
         $request_data = (!empty($request_data[0])) ? array_merge($request_data[0], $request->all())
             : $request->all();
 
-        $request_data['ticket_holder_email'][0]['1'] = $request_data['order_email'] . '@' . $request_data['domain'];
+     foreach ($request_data['ticket_holder_email'][0] as $key=>$ticket){
+         $request_data['ticket_holder_email'][0][$key]   = $request_data['order_email'] . '@' . $request_data['domain'];
+
+     }
         $request_data['order_email'] = $request_data['order_email'] . '@' . $request_data['domain'];
 
         session()->remove('ticket_order_' . $event_id . '.request_data');
