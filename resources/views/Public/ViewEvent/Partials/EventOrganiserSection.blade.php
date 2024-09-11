@@ -1,5 +1,12 @@
-<section id="organiser" class="container" >
+<section id="organiser" class="container">
     <div class="row">
+        <style>
+              #contact-form{
+              text-align: justify;
+    
+              } 
+              
+        </style>
         <div class="col-md-12">
             <div class="event_organiser_details" property="organizer" typeof="Organization">
                 <div class="logo">
@@ -33,7 +40,7 @@
                         <i class="ico-envelop"></i>&nbsp; @lang("Public_ViewEvent.Contact")
                     </button>
                 </p>
-                <div class="contact_form well well-sm">
+                <div class="contact_form well well-sm" dir="rtl">
                     {!! Form::open(['url' => route('postContactOrganiser', ['event_id' => $event->id]), 'class' => 'reset ajax', 'id' => 'contact-form']) !!}
                     <h3>@lang("Public_ViewEvent.Contact") <i>{{$event->organiser->name}}</i></h3>
                     <div class="form-group">

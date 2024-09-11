@@ -5,8 +5,8 @@
 
 return array (
   //==================================== Translations ====================================//
-  'apply' => 'Apply',
-  'action' => 'Action',
+  'apply' => 'تقديم',
+  'action' => 'فعل',
   'affiliates' => 'Affiliates',
   'attendees' => 'Attendees',
   'back_to_login' => 'Back to login',
@@ -28,7 +28,7 @@ return array (
   'event_page_design' => 'Event Page Design',
   'export' => 'Export',
   'general' => 'General',
-  'hello' => 'Hello',
+  'hello' => 'مرحبا',
   'hours' => 'hours',
   'main_menu' => 'Main Menu',
   'manage' => 'Manage',
@@ -47,7 +47,7 @@ return array (
   'success' => 'Success',
   'ticket_design' => 'Ticket Design',
   'access_codes' => 'Access Codes',
-  'thank_you' => 'Thank you',
+  'thank_you' => 'شكرا لك ',
   'tickets' => 'Tickets',
   'TOP' => 'TOP',
   'total' => 'total',

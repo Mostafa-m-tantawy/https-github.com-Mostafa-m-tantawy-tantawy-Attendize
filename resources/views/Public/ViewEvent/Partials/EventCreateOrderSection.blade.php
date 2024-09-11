@@ -117,8 +117,11 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                        <div class="g-recaptcha" data-sitekey="6Le7qToqAAAAALu9GIcOpSgQ9TQVKPmRM_qZGGNp"></div>
+                        <script src="https://www.google.com/recaptcha/api.js?hl=ar" async defer></script>
+<div class="g-recaptcha" data-sitekey="{{config('attendize.captcha.captcha_key')}}"></div>
+                        
+
+        
                     </div>
                 </div>
                 {{--                <div class="row"><div class="col-md-12">&nbsp;</div></div>--}}
