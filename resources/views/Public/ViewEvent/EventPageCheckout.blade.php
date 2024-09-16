@@ -36,6 +36,15 @@
 @section('scripts')
     {{--    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--}}
     <script>
+        function InvalidMsg(textbox) {
+            if (textbox.value == '') {
+                textbox.setCustomValidity('يرجى تعبئة هذا الحقل');
+            }
+            else {
+                textbox.setCustomValidity('');
+            }
+            return true;
+        }
 
         $('document').ready(function () {
             $('#university_id').on('change', function () {

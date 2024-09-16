@@ -55,6 +55,9 @@ class Order extends MyBaseModel
     public $messages = [
         'order_first_name.required' => 'Please enter a valid first name',
         'order_last_name.required'  => 'Please enter a valid last name',
+        'order_phone.size'  => 'صيغة الجوال غير صحيحة. يجب أن يحتوي حقل الجوال على 12 رقم أو خانة وأن يبدأ بـ 966',
+        'order_phone.regex'  => 'صيغة الجوال غير صحيحة. يجب أن يحتوي حقل الجوال على 12 رقم أو خانة وأن يبدأ بـ 966',
+
     ];
 
     protected $casts = [

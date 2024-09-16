@@ -12,7 +12,7 @@
 @endif
 <style>
     .logoImage{
-        position: absolute;
+        position: unset;
         top: 0px;
         right: -2px;
     }

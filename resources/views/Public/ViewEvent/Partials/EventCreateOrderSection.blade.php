@@ -69,35 +69,19 @@
 
                     <div class="col-xs-12">
                         <div class="form-group">
-                            {!! Form::label("order_first_name", trans("Public_ViewEvent.first_name")) !!}
-                            {!! Form::text("order_first_name", null, ['required' => 'required', 'class' => 'form-control order_first_name']) !!}
+                            {!! Form::label("order_first_name"," الاسم الثلاثي") !!}
+                            {!! Form::text("order_first_name", null, ['required' => 'required', 'class' => 'form-control order_first_name' ,
+                            "oninvalid"=>"InvalidMsg(this)"
+]) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-xs-12">
-                        <div class="form-group">
-                            {!! Form::label("order_faculty", trans("Public_ViewEvent.faculty")) !!}
-                            {!! Form::text("order_faculty", null, ['required' => 'required', 'class' => 'form-control order_faculty']) !!}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            {!! Form::label("order_phone", trans("Public_ViewEvent.order_phone")) !!}
-                            {!! Form::number("order_phone", null, ['required' => 'required', 'class' => 'form-control order_phone']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-6">
                         <div class="form-group">
                             {!! Form::label("university", "الجامعة") !!}
-                            <select name="order_university_id" id="university_id" class="form-control order_university_id" required>
+                            <select name="order_university_id" id="university_id" class="form-control order_university_id" required oninvalid="InvalidMsg(this);">
+                                <option value="">اختر </option>
                                 @foreach($universities as $university)
                                     <option data-staff_domain="{{$university->staff_domain}}"
                                             data-stud_domain="{{$university->stud_domain}}"
@@ -106,10 +90,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-12">
                         <div class="form-group">
-                            {!! Form::label("order_type", "النوع") !!}
-                            <select name="order_type" id="type" class="form-control order_type" required>
+                            {!! Form::label("order_type", "الصفة") !!}
+                            <select name="order_type" id="type" class="form-control order_type" required oninvalid="InvalidMsg(this);">
+                                <option value="">اختر </option>
                                 @if($universities->first()->staff_domain)
                                     <option value="staff_domain">عضو هيئه تدريس</option>
                                     <option value="employee_domain">موظف / موظفة</option>
@@ -123,19 +108,43 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
+                        <div class="form-group">
+                            {!! Form::label("order_faculty", trans("Public_ViewEvent.faculty")) !!}
+                            {!! Form::text("order_faculty", null, ['required' => 'required', 'class' => 'form-control order_faculty'
+,                            "oninvalid"=>"InvalidMsg(this)"
+]) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
 
-                        <div class="input-group mb-3">
-                            {!! Form::label("order_email", trans("Public_ViewEvent.email")) !!}
+                        <div class="input-group mb-3" style="    margin-bottom: 10px;">
+                            {!! Form::label("order_email", "البريد الإلكتروني (اسم المستخدم فقط)") !!}
                             <div class="input-group">
                                 <div class="input-group-addon"
                                      id="domainHTML">{{$universities->first()->stud_domain??$universities->first()->staff_domain}}@
                                 </div>
-                                <input class="form-control order_email" name="order_email" required placeholder="email">
+
+                                <input class="form-control order_email" name="order_email"  required placeholder="email" oninvalid="InvalidMsg(this)">
                             </div>
                         </div>
                         <input type="hidden" name="domain" id="domain" value="{{$universities->first()->stud_domain??$universities->first()->staff_domain}}">
                     </div>
                 </div>
+
+
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {!! Form::label("order_phone", "رقم الجوال (يبدأ ب 966)") !!}
+                            {!! Form::number("order_phone", null, ['required' => 'required', 'class' => 'form-control order_phone',
+                            "oninvalid"=>"InvalidMsg(this)"]) !!}
+                        </div>
+                    </div>
+                </div>
+
                 <br>
                 <div class="row">
                     <div class="col-md-12">

@@ -194,7 +194,7 @@ class Event extends MyBaseModel
      */
     public function startDateFormatted()
     {
-        return $this->start_date->format(config('attendize.default_datetime_format'));
+        return $this->start_date->format("Y-m-d H:i");
     }
 
     /**
@@ -219,7 +219,7 @@ class Event extends MyBaseModel
      */
     public function endDateFormatted()
     {
-        return $this->end_date->format(config('attendize.default_datetime_format'));
+        return $this->end_date->format("Y-m-d H:i");
     }
 
     /**
