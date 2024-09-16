@@ -5,7 +5,7 @@
 
 {!! @trans("Order_Emails.successful_order", ["name"=>$order->event->title]) !!}<br><br>
 
-{{ @trans("Order_Emails.tickets_attached") }} <a href="{{route('showOrderDetails', ['order_reference' => $order->order_reference])}}">{{route('showOrderDetails', ['order_reference' => $order->order_reference])}}</a>.
+{{ @trans("Order_Emails.tickets_attached") }} <a href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}">{{route('showOrderDetails', ['order_reference' => $order->order_reference])}}</a>.
 
 @if(!$order->is_payment_received)
 <br><br>

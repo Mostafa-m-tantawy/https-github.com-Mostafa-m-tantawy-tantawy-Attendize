@@ -4,7 +4,7 @@ array:18 [
       0 => "required"
     ]
     "ticket_holder_last_name.0.1" => array:1 [
-      0 => "required"
+      0 => "nullable"
     ]
     "ticket_holder_email.0.1" => array:2 [
       0 => "required"

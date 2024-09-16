@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
 use App\Models\University;
 use Log;
-use Auth;
-use Image;
-use Validator;
-use App\Models\Event;
 use App\Models\Organiser;
-use App\Models\EventImage;
 use Illuminate\Http\Request;
 
 class UniversityController extends MyBaseController
@@ -52,6 +46,7 @@ class UniversityController extends MyBaseController
         $University->name = $request->get('name');
         $University->staff_domain = $request->get('staff_domain');
         $University->stud_domain = $request->get('stud_domain');
+        $University->attendance_limit = $request->get('attendance_limit');
 
         if ($request->get('organiser_id')) {
             $University->organiser_id = $request->get('organiser_id');
@@ -116,6 +111,7 @@ class UniversityController extends MyBaseController
         $University->name = $request->get('name');
         $University->staff_domain = $request->get('staff_domain');
         $University->stud_domain = $request->get('stud_domain');
+        $University->attendance_limit = $request->get('attendance_limit');
         $University->save();
 
         return response()->json([

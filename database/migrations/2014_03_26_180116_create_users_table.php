@@ -446,6 +446,8 @@ class CreateUsersTable extends Migration
             $t->string('first_name');
             $t->string('last_name');
             $t->string('email');
+            $t->string('phone');
+            $t->unsignedInteger('university_id');
 
             $t->string('reference', 20);
             $t->integer('private_reference_number')->index();

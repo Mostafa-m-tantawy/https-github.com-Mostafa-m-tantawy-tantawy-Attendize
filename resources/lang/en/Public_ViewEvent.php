@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'amount'                            => 'Amount',
+    'faculty'                            => 'faculty',
+    'phone'                            => 'phone',
+    'order_phone'                            => 'phone',
+    'amount' => 'Amount',
     'at'                                => '@',
     'attendee_cancelled'                => 'Cancelled',
     'below_order_details_header'        => '',

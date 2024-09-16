@@ -1,11 +1,14 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2018/04/26 11:05:24 
+ Generated via "php artisan localization:missing" at 2018/04/26 11:05:24
 *************************************************************************/
 
 return array (
   //==================================== Translations ====================================//
-  'apply' => 'Apply',
+    'staff_domain' => 'عضو هيئه تدريس',
+    'employee_domain' => 'موظف / موظفة',
+    'stud_domain' => 'طالب /طالبة',
+    'apply' => 'Apply',
   'action' => 'Action',
   'affiliates' => 'Affiliates',
   'attendees' => 'Attendees',

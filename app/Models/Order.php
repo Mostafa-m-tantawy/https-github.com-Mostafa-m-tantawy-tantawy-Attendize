@@ -21,7 +21,11 @@ class Order extends MyBaseModel
      */
     public $rules = [
         'order_first_name' => ['required'],
-        'order_last_name'  => ['required'],
+        'order_last_name'  => ['nullable'],
+        'order_faculty'  => ['nullable'],
+        'order_phone'  => ['required','regex:/^966/','size:12'],
+        'order_type'  => ['nullable'],
+        'order_university_id'  => ['nullable'],
         'order_email' => ['required', 'email'],
     ];
 
@@ -32,6 +36,10 @@ class Order extends MyBaseModel
         'first_name',
         'last_name',
         'email',
+        'faculty',
+        'phone',
+        'type',
+        'university_id',
         'order_status_id',
         'amount',
         'account_id',
@@ -47,7 +55,6 @@ class Order extends MyBaseModel
     public $messages = [
         'order_first_name.required' => 'Please enter a valid first name',
         'order_last_name.required'  => 'Please enter a valid last name',
-        'order_email.email' => 'Please enter a valid email',
     ];
 
     protected $casts = [

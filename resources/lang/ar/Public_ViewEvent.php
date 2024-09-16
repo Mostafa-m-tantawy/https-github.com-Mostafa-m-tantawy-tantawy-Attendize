@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'faculty'                            => 'الكلية / الجهه',
+    'phone'                            => 'الهاتف',
+    'order_phone'                            => 'الهاتف',
     'amount'                            => 'الملبغ',
     'at'                                => '@',
     'attendee_cancelled'                => 'الغاء',

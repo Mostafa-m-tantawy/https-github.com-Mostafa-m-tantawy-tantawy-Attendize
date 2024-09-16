@@ -10,7 +10,20 @@
     </div>
 </section>
 @endif
-
+<style>
+    .logoImage{
+        position: absolute;
+        top: 0px;
+        right: -2px;
+    }
+    @media only screen and (max-width: 780px) {
+        .logoImage{
+            position: unset;
+            top: 0px;
+            right: -2px;
+        }
+    }
+</style>
 <section id="organiserHead" class="container-fluid">
     <div class="container">
         <div class="row">
@@ -23,12 +36,16 @@
     </div>
 </section>
 <section id="intro" class="container">
+
+    <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo" class="logoImage" style="  ">
     <div class="row">
         <div class="col-md-12">
-            <h1 property="name">{{$event->title}}</h1>
-            <div class="logo">
-                <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
-            </div>
+
+
+            <h1 property="name">
+                {{$event->title}}
+            </h1>
+
             <div class="event_venue">
                 <span property="startDate" content="{{ $event->start_date->toIso8601String() }}">
                     {{ $event->startDateFormatted() }}

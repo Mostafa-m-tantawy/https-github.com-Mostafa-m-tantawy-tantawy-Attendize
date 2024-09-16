@@ -18,6 +18,11 @@ return array (
   'first_name' => 'First Name',
   'last_name' => 'Last Name',
   'name' => 'Name',
+  'phone' => 'Phone',
+  'type' => 'Type',
+  'faculty' => 'Faculty',
+  'university_name' => 'University Name',
+
   'ticket' => 'Ticket',
   'reference' => 'Reference',
   'search_attendees' => 'Search Attendees...',

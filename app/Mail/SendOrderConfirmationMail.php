@@ -57,6 +57,6 @@ class SendOrderConfirmationMail extends Mailable
         );
         return $this->subject($subject)
 //                    ->attach($file_path)
-                    ->view('Emails.OrderConfirmation');
+                    ->view('Emails.OrderConfirmationArabic');
     }
 }

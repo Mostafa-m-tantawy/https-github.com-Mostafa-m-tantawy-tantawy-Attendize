@@ -11,8 +11,9 @@ class University extends MyBaseModel
     {
         return [
             'name'               => 'required',
-            'staff_domain'         => 'required',
-            'stud_domain'         => 'required',
+            'staff_domain'         => 'nullable',
+            'stud_domain'         => 'nullable',
+            'attendance_limit'         => 'required',
 
         ];
     }
@@ -23,6 +24,11 @@ class University extends MyBaseModel
     public function account()
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
 }

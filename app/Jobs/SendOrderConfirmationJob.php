@@ -41,6 +41,7 @@ class SendOrderConfirmationJob implements ShouldQueue
 //        GenerateTicketsJob::dispatchNow($this->order);
         $mail = new SendOrderConfirmationMail($this->order, $this->orderService);
         Mail::to($this->order->email)
+//        Mail::to('mostafa.m.tantawy@gmail.com')
             ->locale('ar')
             ->send($mail);
     }

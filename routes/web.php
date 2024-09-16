@@ -112,12 +112,12 @@ Route::group(
         /*
          * Registration / Account creation
          */
-        Route::get('/signup',
-            [UserSignupController::class, 'showSignup']
-        )->name('showSignup');
-
-        Route::post('/signup',
-            [UserSignupController::class, 'postSignup'])->middleware('throttle:3,1');
+//        Route::get('/signup',
+//            [UserSignupController::class, 'showSignup']
+//        )->name('showSignup');
+//
+//        Route::post('/signup',
+//            [UserSignupController::class, 'postSignup'])->middleware('throttle:3,1');
 
         /*
          * Confirm Email

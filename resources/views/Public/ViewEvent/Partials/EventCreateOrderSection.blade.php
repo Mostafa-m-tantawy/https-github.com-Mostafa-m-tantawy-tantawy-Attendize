@@ -37,7 +37,7 @@
                     <div class="panel-footer">
                         <h5>
                             @lang("Public_ViewEvent.total"): <span
-                                    style="float: left;"><b>{{ $orderService->getOrderTotalWithBookingFee(true) }}</b></span>
+                                style="float: left;"><b>{{ $orderService->getOrderTotalWithBookingFee(true) }}</b></span>
                         </h5>
                         @if($event->organiser->charge_tax)
                             <h5>
@@ -66,16 +66,29 @@
                 <h3> @lang("Public_ViewEvent.your_information")</h3>
 
                 <div class="row">
-                    <div class="col-xs-6">
-                        <div class="form-group">
-                            {!! Form::label("order_last_name", trans("Public_ViewEvent.last_name")) !!}
-                            {!! Form::text("order_last_name", null, ['required' => 'required', 'class' => 'form-control order_last_name']) !!}
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
+
+                    <div class="col-xs-12">
                         <div class="form-group">
                             {!! Form::label("order_first_name", trans("Public_ViewEvent.first_name")) !!}
                             {!! Form::text("order_first_name", null, ['required' => 'required', 'class' => 'form-control order_first_name']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {!! Form::label("order_faculty", trans("Public_ViewEvent.faculty")) !!}
+                            {!! Form::text("order_faculty", null, ['required' => 'required', 'class' => 'form-control order_faculty']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {!! Form::label("order_phone", trans("Public_ViewEvent.order_phone")) !!}
+                            {!! Form::number("order_phone", null, ['required' => 'required', 'class' => 'form-control order_phone']) !!}
                         </div>
                     </div>
                 </div>
@@ -84,19 +97,26 @@
                     <div class="col-xs-6">
                         <div class="form-group">
                             {!! Form::label("university", "الجامعة") !!}
-                            <select name="university_id" id="university_id" class="form-control university_id" required>
+                            <select name="order_university_id" id="university_id" class="form-control order_university_id" required>
                                 @foreach($universities as $university)
-                                    <option data-staff_domain="{{$university->staff_domain}}" data-stud_domain="{{$university->stud_domain}}" value="{{$university->id}}">{{$university->name}}</option>
+                                    <option data-staff_domain="{{$university->staff_domain}}"
+                                            data-stud_domain="{{$university->stud_domain}}"
+                                            value="{{$university->id}}">{{$university->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="form-group">
-                            {!! Form::label("type", "النوع") !!}
-                            <select name="type" id="type" class="form-control type" c required>
-                                    <option  value="stud_domain">طالب</option>
-                                    <option value="staff_domain">هيئة تدريس</option>
+                            {!! Form::label("order_type", "النوع") !!}
+                            <select name="order_type" id="type" class="form-control order_type" required>
+                                @if($universities->first()->staff_domain)
+                                    <option value="staff_domain">عضو هيئه تدريس</option>
+                                    <option value="employee_domain">موظف / موظفة</option>
+                                @endif
+                                @if($universities->first()->stud_domain)
+                                    <option value="stud_domain">طالب /طالبة</option>
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -107,21 +127,22 @@
                         <div class="input-group mb-3">
                             {!! Form::label("order_email", trans("Public_ViewEvent.email")) !!}
                             <div class="input-group">
-                                <div class="input-group-addon" id="domainHTML">{{$universities->first()->stud_domain}}@</div>
-                                <input class="form-control order_email" name="order_email" required placeholder="email" >
+                                <div class="input-group-addon"
+                                     id="domainHTML">{{$universities->first()->stud_domain??$universities->first()->staff_domain}}@
+                                </div>
+                                <input class="form-control order_email" name="order_email" required placeholder="email">
                             </div>
                         </div>
-<input type="hidden" name="domain" id="domain" value="{{$universities->first()->stud_domain}}">
+                        <input type="hidden" name="domain" id="domain" value="{{$universities->first()->stud_domain??$universities->first()->staff_domain}}">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
                         <script src="https://www.google.com/recaptcha/api.js?hl=ar" async defer></script>
-<div class="g-recaptcha" data-sitekey="{{config('attendize.captcha.captcha_key')}}"></div>
-                        
+                        <div class="g-recaptcha" data-sitekey="{{config('attendize.captcha.captcha_key')}}"></div>
 
-        
+
                     </div>
                 </div>
                 {{--                <div class="row"><div class="col-md-12">&nbsp;</div></div>--}}
@@ -220,13 +241,13 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         {!! Form::label("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.first_name")) !!}
-                                                        {!! Form::text("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_first_name.$i.{$ticket['ticket']['id']} ticket_holder_first_name form-control"]) !!}
+                                                        {!! Form::text("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", null, [ 'class' => "ticket_holder_first_name.$i.{$ticket['ticket']['id']} ticket_holder_first_name form-control"]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         {!! Form::label("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.last_name")) !!}
-                                                        {!! Form::text("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_last_name.$i.{$ticket['ticket']['id']} ticket_holder_last_name form-control"]) !!}
+                                                        {!! Form::text("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", null, [ 'class' => "ticket_holder_last_name.$i.{$ticket['ticket']['id']} ticket_holder_last_name form-control"]) !!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,7 +255,19 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         {!! Form::label("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.email_address")) !!}
-                                                        {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
+                                                        {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        {!! Form::label("ticket_holder_phone[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.phone")) !!}
+                                                        {!! Form::text("ticket_holder_phone[{$i}][{$ticket['ticket']['id']}]", null, [ 'class' => "ticket_holder_phone.$i.{$ticket['ticket']['id']} ticket_holder_phone form-control"]) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        {!! Form::label("ticket_holder_university_id[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.university_id")) !!}
+                                                        {!! Form::text("ticket_holder_university_id[{$i}][{$ticket['ticket']['id']}]", null, [ 'class' => "ticket_holder_university_id.$i.{$ticket['ticket']['id']} ticket_holder_university_id form-control"]) !!}
                                                     </div>
                                                 </div>
                                                 @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $total_attendee_increment++])

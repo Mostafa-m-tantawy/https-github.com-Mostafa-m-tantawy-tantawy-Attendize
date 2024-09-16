@@ -20,6 +20,13 @@ University            </li>
                 </div>
             </li>
 
+            <li>
+                <div class="section">
+                    <h4 class="nm">{{$university->attendance_limit}}</h4>
+                    <p class="nm text-muted">University Limit</p>
+                </div>
+            </li>
+
 
         </ul>
         <ul class="nav nav-section nav-justified mt5 mb5">

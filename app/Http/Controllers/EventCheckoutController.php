@@ -21,6 +21,8 @@ use App\Models\ReservedTickets;
 use App\Models\Ticket;
 use App\Models\University;
 use App\Services\Order as OrderService;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\Rule;
 use Services\PaymentGateway\Factory as PaymentGatewayFactory;
 use Carbon\Carbon;
 use Config;
@@ -160,7 +162,7 @@ class EventCheckoutController extends Controller
                  * Create our validation rules here
                  */
                 $validation_rules['ticket_holder_first_name.' . $i . '.' . $ticket_id] = ['required'];
-                $validation_rules['ticket_holder_last_name.' . $i . '.' . $ticket_id] = ['required'];
+                $validation_rules['ticket_holder_last_name.' . $i . '.' . $ticket_id] = ['nullable'];
                 $validation_rules['ticket_holder_email.' . $i . '.' . $ticket_id] = ['required', 'email'];
 
                 $validation_messages['ticket_holder_first_name.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s first name is required';
@@ -283,6 +285,7 @@ class EventCheckoutController extends Controller
 
     public function postValidateOrder(Request $request, $event_id)
     {
+        App::setLocale('ar');
         //If there's no session kill the request and redirect back to the event homepage.
         if (!session()->get('ticket_order_' . $event_id)) {
             return response()->json([
@@ -297,16 +300,15 @@ class EventCheckoutController extends Controller
         $request_data = session()->get('ticket_order_' . $event_id . ".request_data");
         $request_data = (!empty($request_data[0])) ? array_merge($request_data[0], $request->all())
                                                    : $request->all();
-
         $event = Event::findOrFail($event_id);
         // $request_data['ticket_holder_email'][0][$event->id] =$request_data['order_email'] .'@'.$request_data['domain'];
-        
-        
+
+
      foreach ($request_data['ticket_holder_email'][0] as $key=>$ticket){
          $request_data['ticket_holder_email'][0][$key]   = $request_data['order_email'] . '@' . $request_data['domain'];
-         
+
      }
-     
+
         $request_data['order_email'] =$request_data['order_email'] .'@'.$request_data['domain'];
 
         session()->remove('ticket_order_' . $event_id . '.request_data');
@@ -317,31 +319,20 @@ class EventCheckoutController extends Controller
 
         $validation_rules = $ticket_order['validation_rules'];
         $validation_messages = $ticket_order['validation_messages'];
+        $order->rules['order_email'][]=Rule::unique('orders','email')
+            ->where('event_id',$event_id);
 
+        $order->rules['order_university_id'][]=  function ($attribute, $value, $fail)use ($event_id) {
+            $university= University::find($value);
+            $orders= $university->orders()->where('event_id',$event_id)->count();
+            if ($orders >=$university->attendance_limit ) {
+                $fail(__('error.The University is out of tickets'));
+            }
+        };
+
+//dd( $order->rules);
         $order->rules = $order->rules + $validation_rules;
         $order->messages = $order->messages + $validation_messages;
-
-//        if ($request->has('is_business') && $request->get('is_business')) {
-//            // Dynamic validation on the new business fields, only gets validated if business selected
-//            $businessRules = [
-//                'business_name' => 'required',
-//                'business_tax_number' => 'required',
-//                'business_address_line1' => 'required',
-//                'business_address_city' => 'required',
-//                'business_address_code' => 'required',
-//            ];
-//
-//            $businessMessages = [
-//                'business_name.required' => 'Please enter a valid business name',
-//                'business_tax_number.required' => 'Please enter a valid business tax number',
-//                'business_address_line1.required' => 'Please enter a valid street address',
-//                'business_address_city.required' => 'Please enter a valid city',
-//                'business_address_code.required' => 'Please enter a valid code',
-//            ];
-//
-//            $order->rules = $order->rules + $businessRules;
-//            $order->messages = $order->messages + $businessMessages;
-//        }
         if (!$order->validate($request_data)) {
             return response()->json([
                 'status'   => 'error',
@@ -567,8 +558,13 @@ $event = Event::findOrFail($event_id);
                 $order->payment_gateway_id = $ticket_order['payment_gateway']->id;
             }
             $order->first_name = sanitise($request_data['order_first_name']);
-            $order->last_name = sanitise($request_data['order_last_name']);
+//            $order->last_name = sanitise($request_data['order_last_name']);
+            $order->last_name = " ";
             $order->email = sanitise($request_data['order_email']);
+            $order->university_id = sanitise($request_data['order_university_id']);
+            $order->phone = sanitise($request_data['order_phone']);
+            $order->faculty = sanitise($request_data['order_faculty']);
+            $order->type = sanitise($request_data['order_type']);
             $order->order_status_id = isset($request_data['pay_offline']) ? config('attendize.order.awaiting_payment') : config('attendize.order.complete');
             $order->amount = $ticket_order['order_total'];
             $order->booking_fee = $ticket_order['booking_fee'];
@@ -667,6 +663,8 @@ $event = Event::findOrFail($event_id);
                     $attendee->first_name = sanitise($request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']]);
                     $attendee->last_name = sanitise($request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']]);
                     $attendee->email = sanitise($request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']]);
+                    $attendee->phone  = $request_data["ticket_holder_phone"][$i][$attendee_details['ticket']['id']];
+                    $attendee->university_id = $request_data["ticket_holder_university_id"][$i][$attendee_details['ticket']['id']];
                     $attendee->event_id = $event_id;
                     $attendee->order_id = $order->id;
                     $attendee->ticket_id = $attendee_details['ticket']['id'];
@@ -738,11 +736,11 @@ $event = Event::findOrFail($event_id);
         Log::debug('Queueing Order Tickets Job');
         SendOrderConfirmationJob::dispatch($order, $orderService);
         // Send tickets to attendees
-        Log::debug('Queueing Attendee Ticket Jobs');
-        foreach ($order->attendees as $attendee) {
-            SendOrderAttendeeTicketJob::dispatch($attendee);
-            Log::debug('Queueing Attendee Ticket Job Done');
-        }
+//        Log::debug('Queueing Attendee Ticket Jobs');
+//        foreach ($order->attendees as $attendee) {
+//            SendOrderAttendeeTicketJob::dispatch($attendee);
+//            Log::debug('Queueing Attendee Ticket Job Done');
+//        }
 
         if ($return_json) {
             return response()->json([
