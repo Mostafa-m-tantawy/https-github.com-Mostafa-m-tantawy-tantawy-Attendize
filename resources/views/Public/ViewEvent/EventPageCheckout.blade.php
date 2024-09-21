@@ -48,13 +48,23 @@
 
         $('document').ready(function () {
             $('#university_id').on('change', function () {
+                $(' #type ').html(
+                    `                      <option  value="">اختر</option>`
+                )
+
+                if(!$(this).val()){
+
+                    $('#domainHTML').html('');
+                    $('#domain').val('');
+                    return
+                }
                 if ($(this).find(':selected').data('stud_domain')) {
-                    $(' #type ').html(
+                    $(' #type ').append(
                         `                      <option  value="stud_domain">طالب /طالبة</option>`
                     )
                 }
                 if ($(this).find(':selected').data('staff_domain')) {
-                    $(' #type ').html(
+                    $(' #type ').append(
                         ` <option value="staff_domain">عضو هيئه تدريس</option>
                                 <option value="employee_domain">موظف / موظفة</option>`
                     )
@@ -62,16 +72,24 @@
             });
 
             $('#university_id , #type ').on('change', function () {
-                if ($('#type').val() == 'stud_domain'){
-                    $('#domainHTML').html($('#university_id').find(':selected').data('stud_domain')+'@');
-                    $('#domain').val($('#university_id').find(':selected').data('stud_domain'));
 
-                }
-                else {
-                    $('#domainHTML').html($('#university_id').find(':selected').data('staff_domain')+'@');
-                    $('#domain').val($('#university_id').find(':selected').data('staff_domain'));
-                }
 
+
+                if(   $('#university_id').val() && $(' #type ').val()) {
+
+                    if ($('#type').val() == 'stud_domain') {
+                        $('#domainHTML').html($('#university_id').find(':selected').data('stud_domain') + '@');
+                        $('#domain').val($('#university_id').find(':selected').data('stud_domain'));
+
+                    } else {
+                        $('#domainHTML').html($('#university_id').find(':selected').data('staff_domain') + '@');
+                        $('#domain').val($('#university_id').find(':selected').data('staff_domain'));
+                    }
+                }else {
+                    $('#domainHTML').html('');
+                    $('#domain').val('');
+                    return
+                }
 
             });
 

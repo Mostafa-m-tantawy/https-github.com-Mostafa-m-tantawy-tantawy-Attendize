@@ -4816,7 +4816,7 @@ function processFormErrors($form, errors)
     });
 
     var $submitButton = $form.find('input[type=submit]');
-    toggleSubmitDisabled($submitButton);
+    // toggleSubmitDisabled($submitButton);
 }
 
 /**
@@ -4827,18 +4827,18 @@ function processFormErrors($form, errors)
  */
 function toggleSubmitDisabled($submitButton) {
 
-    // if ($submitButton.hasClass('disabled')) {
-    //     $submitButton.attr('disabled', false)
-    //             .removeClass('disabled')
-    //             .val($submitButton.data('original-text'));
-    //     return;
-    // }else{
-    //
-    //     $submitButton.data('original-text', $submitButton.val())
-    //         .attr('disabled', true)
-    //         .addClass('disabled')
-    //         .val(lang("processing"));
-    // }
+    if ($submitButton.hasClass('disabled')) {
+        $submitButton.attr('disabled', false)
+                .removeClass('disabled')
+                .val($submitButton.data('original-text'));
+        return;
+    }else{
+
+        $submitButton.data('original-text', $submitButton.val())
+            .attr('disabled', true)
+            .addClass('disabled')
+            .val(lang("processing"));
+    }
 
 }
 

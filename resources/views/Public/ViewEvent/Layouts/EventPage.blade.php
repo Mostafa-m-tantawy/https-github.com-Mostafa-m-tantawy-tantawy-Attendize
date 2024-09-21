@@ -98,7 +98,7 @@
             <span style="font-size:11px;">@lang("basic.TOP")</span></a>
 
         @include("Shared.Partials.LangScript")
-        {!!Html::script(config('attendize.cdn_url_static_assets').'/assets/javascript/frontend.js')!!}
+        {!!Html::script(config('attendize.cdn_url_static_assets').'/assets/javascript/frontend.js?v=1.0')!!}
 
 
         @if(isset($secondsToExpire))

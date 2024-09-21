@@ -95,13 +95,13 @@
                             {!! Form::label("order_type", "الصفة") !!}
                             <select name="order_type" id="type" class="form-control order_type" required oninvalid="InvalidMsg(this);">
                                 <option value="">اختر </option>
-                                @if($universities->first()->staff_domain)
-                                    <option value="staff_domain">عضو هيئه تدريس</option>
-                                    <option value="employee_domain">موظف / موظفة</option>
-                                @endif
-                                @if($universities->first()->stud_domain)
-                                    <option value="stud_domain">طالب /طالبة</option>
-                                @endif
+{{--                                @if($universities->first()->staff_domain)--}}
+{{--                                    <option value="staff_domain">عضو هيئه تدريس</option>--}}
+{{--                                    <option value="employee_domain">موظف / موظفة</option>--}}
+{{--                                @endif--}}
+{{--                                @if($universities->first()->stud_domain)--}}
+{{--                                    <option value="stud_domain">طالب /طالبة</option>--}}
+{{--                                @endif--}}
                             </select>
                         </div>
                     </div>
@@ -123,13 +123,14 @@
                             {!! Form::label("order_email", "البريد الإلكتروني (اسم المستخدم فقط)") !!}
                             <div class="input-group">
                                 <div class="input-group-addon"
-                                     id="domainHTML">{{$universities->first()->stud_domain??$universities->first()->staff_domain}}@
+                                     id="domainHTML">
                                 </div>
-
+{{--                                {{$universities->first()->stud_domain??$universities->first()->staff_domain}}@--}}
                                 <input class="form-control order_email" name="order_email"  required placeholder="email" oninvalid="InvalidMsg(this)">
                             </div>
                         </div>
-                        <input type="hidden" name="domain" id="domain" value="{{$universities->first()->stud_domain??$universities->first()->staff_domain}}">
+                        <input type="hidden" name="domain" id="domain" value="">
+{{--                        {{$universities->first()->stud_domain??$universities->first()->staff_domain}}--}}
                     </div>
                 </div>
 
@@ -279,7 +280,6 @@
                                                         {!! Form::text("ticket_holder_university_id[{$i}][{$ticket['ticket']['id']}]", null, [ 'class' => "ticket_holder_university_id.$i.{$ticket['ticket']['id']} ticket_holder_university_id form-control"]) !!}
                                                     </div>
                                                 </div>
-                                                @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $total_attendee_increment++])
 
                                             </div>
                                         </div>
@@ -289,7 +289,11 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row" >
+                    <div class="col-md-12">
+                        @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $total_attendee_increment++])
+                    </div>
+                </div>
                 @if($event->pre_order_display_message)
                     <div class="well well-small">
                         {!! nl2br(e($event->pre_order_display_message)) !!}
